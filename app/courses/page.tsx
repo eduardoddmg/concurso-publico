@@ -116,7 +116,6 @@ const courses = [
 ];
 
 const stats = [
-  { label: 'Total de Flashcards', value: '8.550', icon: BookOpen },
   { label: 'Cursos Disponíveis', value: '12', icon: Target },
   { label: 'Disciplinas', value: '86', icon: BarChart3 },
   { label: 'Estudantes Ativos', value: '2.847', icon: Users }
@@ -238,91 +237,93 @@ export default function CoursesPage() {
         {/* Courses Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCourses.map((course) => (
-            <Card key={course.id} className="hover:shadow-xl transition-all duration-300 border-0 shadow-lg group cursor-pointer">
-              <CardHeader className="pb-4">
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center space-x-3">
-                    <div className={`${course.color} w-12 h-12 rounded-lg flex items-center justify-center text-white text-xl`}>
-                      {course.image}
-                    </div>
-                    <div>
-                      <CardTitle className="text-lg group-hover:text-blue-600 transition-colors">
-                        {course.name}
-                      </CardTitle>
-                      <CardDescription className="text-xs mt-1">
-                        {course.banca} • {course.vagas} vagas
-                      </CardDescription>
-                    </div>
-                  </div>
-                  <Badge className={getDifficultyColor(course.difficulty)}>
-                    {course.difficulty}
-                  </Badge>
-                </div>
-                
-                <p className="text-sm text-gray-600 mt-3 line-clamp-2">
-                  {course.description}
-                </p>
-                
-                <div className="flex items-center justify-between text-xs text-gray-500 mt-2">
-                  <div className="flex items-center">
-                    <Star className="w-3 h-3 mr-1 text-yellow-500" />
-                    <span>{course.popularity}% popular</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Calendar className="w-3 h-3 mr-1" />
-                    <span>Atualizado {course.lastUpdate}</span>
-                  </div>
-                </div>
-              </CardHeader>
+            <Link key={course.id} href={`/courses/${course.id}`} className="block">
+              <Card className="hover:shadow-xl transition-all duration-300 border-0 shadow-lg group cursor-pointer h-full flex flex-col">
+  <CardHeader className="pb-4">
+    <div className="flex items-start justify-between">
+      <div className="flex items-center space-x-3">
+        <div className={`${course.color} w-12 h-12 rounded-lg flex items-center justify-center text-white text-xl`}>
+          {course.image}
+        </div>
+        <div>
+          <CardTitle className="text-lg group-hover:text-blue-600 transition-colors">
+            {course.name}
+          </CardTitle>
+          <CardDescription className="text-xs mt-1">
+            {course.banca} • {course.vagas} vagas
+          </CardDescription>
+        </div>
+      </div>
+      <Badge className={getDifficultyColor(course.difficulty)}>
+        {course.difficulty}
+      </Badge>
+    </div>
+    
+    <p className="text-sm text-gray-600 mt-3 line-clamp-2">
+      {course.description}
+    </p>
+    
+    <div className="flex items-center justify-between text-xs text-gray-500 mt-2">
+      <div className="flex items-center">
+        <Star className="w-3 h-3 mr-1 text-yellow-500" />
+        <span>{course.popularity}% popular</span>
+      </div>
+      <div className="flex items-center">
+        <Calendar className="w-3 h-3 mr-1" />
+        <span>Atualizado {course.lastUpdate}</span>
+      </div>
+    </div>
+  </CardHeader>
 
-              <CardContent className="pt-0">
-                {/* Progress */}
-                <div className="mb-4">
-                  <div className="flex justify-between text-sm text-gray-600 mb-2">
-                    <span>Progresso</span>
-                    <span>{course.progress}%</span>
-                  </div>
-                  <Progress value={course.progress} className="h-2" />
-                </div>
+  <CardContent className="pt-0 flex flex-col flex-grow">
+    {/* Conteúdo do card */}
+    <div className="mb-4">
+      <div className="flex justify-between text-sm text-gray-600 mb-2">
+        <span>Progresso</span>
+        <span>{course.progress}%</span>
+      </div>
+      <Progress value={course.progress} className="h-2" />
+    </div>
 
-                {/* Subjects Preview */}
-                <div className="mb-4">
-                  <p className="text-sm font-medium text-gray-700 mb-2">
-                    Disciplinas ({course.totalSubjects})
-                  </p>
-                  <div className="flex flex-wrap gap-1">
-                    {course.subjects.slice(0, 3).map((subject, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs">
-                        {subject}
-                      </Badge>
-                    ))}
-                    {course.subjects.length > 3 && (
-                      <Badge variant="secondary" className="text-xs">
-                        +{course.subjects.length - 3}
-                      </Badge>
-                    )}
-                  </div>
-                </div>
+    <div className="mb-4">
+      <p className="text-sm font-medium text-gray-700 mb-2">
+        Disciplinas ({course.totalSubjects})
+      </p>
+      <div className="flex flex-wrap gap-1">
+        {course.subjects.slice(0, 3).map((subject, index) => (
+          <Badge key={index} variant="secondary" className="text-xs">
+            {subject}
+          </Badge>
+        ))}
+        {course.subjects.length > 3 && (
+          <Badge variant="secondary" className="text-xs">
+            +{course.subjects.length - 3}
+          </Badge>
+        )}
+      </div>
+    </div>
 
-                {/* Course Info */}
-                <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
-                  <div className="flex items-center">
-                    <BookOpen className="w-4 h-4 mr-1" />
-                    <span>{course.totalFlashcards} flashcards</span>
-                  </div>
-                  <div className="text-green-600 font-semibold">
-                    {course.salario}
-                  </div>
-                </div>
+    <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
+      <div className="flex items-center">
+        <BookOpen className="w-4 h-4 mr-1" />
+        <span>{course.totalFlashcards} flashcards</span>
+      </div>
+      <div className="text-green-600 font-semibold">
+        {course.salario}
+      </div>
+    </div>
 
-                <Button asChild className="w-full group-hover:bg-blue-600 transition-colors">
-                  <Link href={`/courses/${course.id}`}>
-                    Acessar Curso
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
+    {/* Botão fixo no final */}
+    <div className="mt-auto">
+      <Button className="w-full group-hover:bg-blue-600 transition-colors">
+        Acessar Curso
+        <ArrowRight className="w-4 h-4 ml-2" />
+      </Button>
+    </div>
+  </CardContent>
+</Card>
+
+            </Link>
           ))}
         </div>
 
