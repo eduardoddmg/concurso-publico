@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { ArrowLeft, Check, X, HelpCircle, BookOpen, Target } from 'lucide-react';
+import Link from 'next/link';
 
 // Mock data - flashcards por disciplina
 const subjectFlashcards = {
@@ -75,9 +76,9 @@ export default function StudyPage({ params }: { params: Promise<{ subjectId: str
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Disciplina não encontrada</h2>
             <p className="text-gray-600 mb-4">A disciplina solicitada não existe ou foi removida.</p>
             <Button asChild>
-              <a href="/courses">
+              <Link href="/courses">
                 Voltar para Cursos
-              </a>
+              </Link>
             </Button>
           </CardContent>
         </Card>
@@ -125,10 +126,10 @@ export default function StudyPage({ params }: { params: Promise<{ subjectId: str
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <Button asChild variant="ghost" size="sm">
-                  <a href="/courses" className="flex items-center">
+                  <Link href="/courses" className="flex items-center">
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Voltar
-                  </a>
+                  </Link>
                 </Button>
                 <div>
                   <h1 className="text-xl font-bold text-gray-900">{subject.name}</h1>
